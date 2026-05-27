@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/opt/sonar-scanner/sonar-scanner-7.0.2.4839-linux-x64/bin:${env.PATH}"
+    }
+    
     tools {
         nodejs 'NodeJS'
     }
