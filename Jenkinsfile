@@ -28,7 +28,7 @@ pipeline {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
                     sonar-scanner \
-                    -Dsonar.projectKey=devsecops-demo \
+                    -Dsonar.projectKey=devsecops-demo2 \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=http://host.docker.internal:9000 \
                     -Dsonar.login=squ_acb43707b3edfca6a30ac63b621843be4770743f

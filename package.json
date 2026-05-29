@@ -1,15 +1,12 @@
 {
-  "name": "devsecops-demo",
-  "version": "1.0.0",
-  "description": "DevSecOps Demo Project",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "express": "^4.22.2"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+"name": "devsecops-demo2",
+"version": "1.0.0",
+"description": "Vulnerable DevSecOps Demo",
+"main": "app.js",
+"scripts": {
+"start": "node app.js"
+},
+"dependencies": {
+"express": "^4.22.2"
+}
 }
