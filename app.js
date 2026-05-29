@@ -1,72 +1,28 @@
 const express = require('express');
-const crypto = require('crypto');
-const { exec } = require('child_process');
-
-const app = express();
-
-const password = "123456"; // hardcoded credential
-const apiKey = "SECRET-KEY-999";
+const app = express(); // Gây lỗi Security Hotspot (Fingerprinting) vì không disable x-powered-by
 
 app.get('/', (req, res) => {
+    let userInput = req.query.name;
 
-```
-let userInput = req.query.name;
+    // 1. CODE SMELL: Trùng lặp code (Duplicated code block)
+    if(userInput == "admin"){
+        console.log("Admin login");
+    }
+    if(userInput == "admin"){
+        console.log("Admin login");
+    }
 
-// duplicated code
-if(userInput == "admin"){
-    console.log("Admin login");
-}
+    // 2. BUG: Gây crash server nếu user không truyền tham số 'name' (gây ra lỗi gọi hàm trên undefined)
+    // Giả lập một Bug logic xử lý chuỗi:
+    let upperName = userInput.toUpperCase(); 
 
-if(userInput == "admin"){
-    console.log("Admin login");
-}
-
-// insecure eval
-eval(userInput);
-
-// weak equality
-if(userInput == null){
-    console.log("Null input");
-}
-
-// sensitive log
-console.log("API KEY:", apiKey);
-
-// weak crypto
-const hash = crypto
-    .createHash('md5')
-    .update(userInput)
-    .digest('hex');
-
-console.log(hash);
-
-// command injection
-exec("ping " + userInput);
-
-// unused variable
-let temp = 12345;
-
-// empty catch block
-try {
-
-} catch(e) {
-
-}
-
-// null bug
-let x = null;
-
-try {
-    x.trim();
-} catch(e) {
-
-}
-
-res.send("Hello " + userInput);
-```
-
+    // 3. VULNERABILITY: Lỗi Reflected XSS do nối chuỗi trực tiếp dữ liệu chưa kiểm duyệt
+    res.send("Hello " + userInput);
 });
 
+// 4. CODE SMELL: Khai báo biến mà không sử dụng (unused variable)
+const unusedVariable = "Khang"; 
+
 app.listen(3000, () => {
-console.log("Vulnerable App running on port 3000");
+    console.log("Server running on port 3000");
 });
